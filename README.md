@@ -1,6 +1,6 @@
 # Qlab Stuff
 
-[![GitHub license](https://img.shields.io/github/license/florianbeck/qlab-stuff.svg)](https://github.com/florianbeck/qlab-stuff/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/florianbeck/qlab-stuff.svg)](https://github.com/florianbeck/qlab-stuff/blob/main/LICENSE)
 
 ## Introduction
 
