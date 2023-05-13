@@ -8,25 +8,27 @@ This is a collection of scripts for Figure 53's **Qlab** show control software.
 
 ## Installation
 
+These scripts can either run within Qlab as script cues, though I recommend that instead, the be called from script cues and run externally.
+
 To install the scripts as script cues, use the script "~/00 Import scripts to cues.applescript". Run the script from Script Editor with your qlab file open, and it will allow you to select the script or scripts you wish to import. If you import multiple scripts, it will create script cues and write the scripts (with less header information) into the cue. If you import a single script and currently have a script cue selected, it will write the script into that cue.
 
-<!-- ### Script Library
+### Script Library
 
 To install the scripts to your user's Library folder, in "Script Libraries", run the script "~/00 Import all to library.applescript" from the script editor. This gives you two options: install from a local folder (if you have downloaded a specific release, to work with a Qlab file you have already set up) or directly from github (if you have an internet connection and want the most up to date versions).
 
 Within Qlab, call the script (usually from within a `tell application "Qlab" to tell front workspace` block) like so:
 
-`tell script "Mixing Desk Programming/Choose Desk to program" to run` -->
+`tell script "Level/Loudness Normalization`
 
-<!--## User Defined Variables
+## User Defined Variables
 
-Some scripts contain User Defined Variables. With these, when you call the script within Qlab, you can declare these variables globally and set them from within Qlab: e.g. in `Levels/Loudness Normalization` you can set the reference and fader level. The syntax for this would be as follows:
+Some scripts contain User Defined Variables. With these, when you call the script within Qlab, you can declare these variables globally and set them from within Qlab: e.g. in `Level/Loudness Normalization` you can set the reference and fader level. The syntax for this would be as follows:
 
 ```applescript
 global theReferenceLevel, thefaderLevel
 set theReferenceLevel to -23
 set thefaderLevel to 0
-```-->
+```
 
 <!-- ## Variables set within Qlab
 
