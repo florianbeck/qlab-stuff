@@ -2,19 +2,28 @@
 -- @author Florian Beck
 -- @link florianbeck.de
 -- @source Mic Pool (adapted)
--- @version 2.0
+-- @version 2.1
 -- @testedmacos 11.7.3
 -- @testedqlab 4.7
 -- @about Loudness Normalization of Audiocues in Accordance with EBU R 128 adjusting the Master Volume.
 -- @separateprocess TRUE
 
 -- @changelog
---   v2.0  + initial version adopted of micpools level-playing-field script
+--   v2.1 + change to global variables
+--   v2.0  + initial version adapted of micpools level-playing-field script
 
 -- USER DEFINED VARIABLES -----------------
 
-set theReferenceLevel to -23 -- set desired LUFS level
-set thefaderLevel to 0 -- set the master fader level to your preferred output level for cues with an LUFS at the reference level
+try -- if global variables are given when this script is called by another, use those variables
+	theReferenceLevel
+on error
+	set theReferenceLevel to -23 -- set desired LUFS level
+end try
+try
+	theFaderLevel
+on error
+	set theFaderLevel to 0 -- set the master fader level to your preferred output level for cues with an LUFS at the reference level
+end try
 
 ---------- END OF USER DEFINED VARIABLES --
 
@@ -34,9 +43,9 @@ tell application id "com.figure53.QLab.4" to tell front workspace
 					
 					set currentFileTarget to quoted form of POSIX path of (file target of eachcue as alias)
 					set theLUFS to (do shell script "echo $( " & (cliPath as string) & "/r128x-cli " & (currentFileTarget as string) & " | tail -n1 | awk '{print $(NF-2)}' | sed 's/\\./" & character 2 of ((1 / 2) as text) & "/g' )") as real
-					set theadjustment to (theReferenceLevel - theLUFS) + thefaderLevel
+					set theAdjustment to (theReferenceLevel - theLUFS) + theFaderLevel
 					-- set the notes of eachcue to "LUFS: " & theLUFS & ", Adjustment: " & theadjustment
-					eachcue setLevel row 0 column 0 db theadjustment
+					eachcue setLevel row 0 column 0 db theAdjustment
 					
 				end if
 			end repeat

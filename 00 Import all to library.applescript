@@ -1,7 +1,7 @@
 -- @description Import all script to user library
 -- @author Florian Beck
 -- @link florianbeck.de
--- @source Ben Smith (adopted)
+-- @source Ben Smith (adapted)
 -- @version 1.0
 -- @testedmacos 11.7.3
 -- @testedqlab 4.7
@@ -9,7 +9,7 @@
 -- @separateprocess TRUE
 
 -- @changelog
--- v1.0 + initial version adopted of Ben Smiths script
+-- v1.0 + initial version adapted of Ben Smiths script
 
 
 -- USER DEFINED VARIABLES -----------------
@@ -155,7 +155,9 @@ on findAllScripts(theFolder)
 				my findAllScripts(eachItem)
 			else
 				if name extension of (info for (eachItem as alias) without size) is "applescript" then
-					set end of scriptFiles to eachItem
+					if (name of (info for (eachItem as alias) without size) starts with "00") is false then
+						set end of scriptFiles to eachItem
+					end if
 				end if
 			end if
 			
