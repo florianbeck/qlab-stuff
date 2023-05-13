@@ -25,9 +25,9 @@ Within Qlab, call the script (usually from within a `tell application "Qlab" to 
 Some scripts contain User Defined Variables. With these, when you call the script within Qlab, you can declare these variables globally and set them from within Qlab: e.g. in `Level/Loudness Normalization` you can set the reference and fader level. The syntax for this would be as follows:
 
 ```applescript
-global theReferenceLevel, thefaderLevel
-set theReferenceLevel to -23
-set thefaderLevel to 0
+global referenceLevel, faderLevel
+set referenceLevel to -23
+set faderLevel to 0
 ```
 
 <!-- ## Variables set within Qlab
