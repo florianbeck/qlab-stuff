@@ -13,21 +13,9 @@
 
 -- USER DEFINED VARIABLES -----------------
 
-try -- if global variables are given when this script is called by another, use those variables
-	theReferenceLevel
-on error
-	set theReferenceLevel to -23 -- set desired LUFS level
-end try
-try
-	thefaderLevel
-on error
-	set thefaderLevel to 0 -- set the master fader level to your preferred output level for cues with an LUFS at the reference level
-end try
-try
-	cliPath
-on error
-	set cliPath to "/usr/local/bin" -- set the path to r128x-cli (no trailing slash)
-end try
+set theReferenceLevel to -23 -- set desired LUFS level
+set thefaderLevel to 0 -- set the master fader level to your preferred output level for cues with an LUFS at the reference level
+set cliPath to "/usr/local/bin" -- set the path to r128x-cli (no trailing slash)
 
 ---------- END OF USER DEFINED VARIABLES --
 
