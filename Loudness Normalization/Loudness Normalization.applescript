@@ -15,11 +15,12 @@
 
 set theReferenceLevel to -23 -- set desired LUFS level
 set thefaderLevel to 0 -- set the master fader level to your preferred output level for cues with an LUFS at the reference level
-set cliPath to "/usr/local/bin" -- set the path to r128x-cli (no trailing slash)
 
 ---------- END OF USER DEFINED VARIABLES --
 
 ---- RUN SCRIPT ---------------------------
+
+set cliPath to "/usr/local/bin" -- set the path to r128x-cli (no trailing slash)
 
 tell application id "com.figure53.QLab.4" to tell front workspace
 	display dialog "WARNING: This will change the master levels of all selected cues" & return & return & "A dialog will signal when the level setting is complete." & return & return & "PROCEED?"
