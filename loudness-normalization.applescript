@@ -1,7 +1,7 @@
 -- @description Loudness Normalization
 -- @author Florian Beck
 -- @link www.florianbeck.de
--- @source Mic Pool
+-- @source Mic Pool (level-playing-field)
 -- @version 2.1
 -- @about Loudness Normalization of Audiocues in accordance with EBU R 128 adjusting the cues master volume. Requirements: External CLI tool r128x by Audionuma (please note @readme in the script source).
 
