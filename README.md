@@ -6,7 +6,7 @@ This is a collection of scripts for Figure 53's **Qlab** show control software.
 
 ## Installation
 
-These scripts can run within Qlab as script cues or externally within Apples Scripteditor
+These scripts can run within Qlab as script cues or externally with Script Editor.
 
 To install the scripts as script cues, use the script "~/00 Import scripts to cues.applescript". Run the script from Script Editor with your qlab file open, and it will allow you to select the script or scripts you wish to import. If you import multiple scripts, it will create script cues and write the scripts into the cue. If you import a single script and currently have a script cue selected, it will write the script into that cue.
 
