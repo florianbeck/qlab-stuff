@@ -1,26 +1,12 @@
 -- @description Import scripts to cues
--- @author Ben Smith
--- @link bensmithsound.uk
--- @version 1.2
--- @testedmacos 10.13.6
--- @testedqlab 4.6.10
--- @about Run this script in MacOS's "Script Editor" to quickly create script cues using the scripts in this repository. As of Qlab 4.6.9 you cannot set "run in separate process" through applescript. Input your default, and the script will alert you if you need to change it.
--- @separateprocess TRUE
+-- @author Florian Beck
+-- @link www.florianbeck.de
+-- @source Ben Smith
+-- @version 2.0
+-- @about Run this script in MacOS's "Script Editor" to quickly create script cues using the scripts in this repository. 
 
 -- @changelog
---   v1.2  + updated console logging to log all available information when not all metadata tags are provided
---         + non-tagged scripts now import into cues named without ".applescript" extension
---         + updated trimLine function formatting (replaced snake_case with camelCase)
-
-
--- USER DEFINED VARIABLES -----------------
-
-set defaultSeparateProcess to "TRUE" -- your Qlab default for script cues as a string, either "TRUE" or "FALSE"
-
-set versionWarnings to true -- set to false if you do not with to be notified about version differences between your system and the system the scripts have been tested on
-
----------- END OF USER DEFINED VARIABLES --
-
+--   v2.0 + upgraded for qlab5, do without version testing and importing the whole sctipt including comments
 
 -- RUN SCRIPT -----------------------------
 
@@ -53,36 +39,24 @@ repeat with eachScript in scriptFiles
 		else if eachLine contains "@source" then
 			set eachScriptSource to trimLine(eachLine, "-- @source ", 0)
 			log "Source: " & eachScriptSource
-		else if eachLine contains "@version" then
-			set eachScriptVersion to trimLine(eachLine, "-- @version ", 0)
-			log "Version: " & eachScriptVersion
-		else if eachLine contains "@testedmacos" then
-			set eachScriptMacOS to trimLine(eachLine, "-- @testedmacos ", 0)
-			log "MacOS: " & eachScriptMacOS
-		else if eachLine contains "@testedqlab" then
-			set eachScriptQlab to trimLine(eachLine, "-- @testedqlab ", 0)
-			log "Qlab: " & eachScriptQlab
 		else if eachLine contains "@about" then
 			set eachScriptAbout to trimLine(eachLine, "-- @about ", 0)
 			log "About: " & eachScriptAbout
-		else if eachLine contains "@separateprocess" then
-			set eachScriptSeparateProcess to trimLine(eachLine, "-- @separateprocess ", 0)
-			log "Separate Process: " & eachScriptSeparateProcess
 		end if
 		
 		-- Get script source
 		
-		if eachLine does not contain "-- @" and eachLine does not contain "--   " then
-			set scriptContents to scriptContents & "
+		--if eachLine does not contain "-- @" and eachLine does not contain "--   " then
+		set scriptContents to scriptContents & "
 " & eachLine
-		end if
+		--end if
 		
 		set scriptContents to my trimLine(scriptContents, "
 ", 0)
 		
 	end repeat
 	
-	tell application id "com.figure53.Qlab.4" to tell front workspace
+	tell application id "com.figure53.Qlab.5" to tell front workspace
 		
 		-- Get cue to write, or create cue
 		
@@ -125,66 +99,8 @@ repeat with eachScript in scriptFiles
 		-- Set script source
 		
 		try
-			set script source of scriptCue to "-- @version " & eachScriptVersion & "
-    
-    	" & scriptContents
-		on error
 			set script source of scriptCue to scriptContents
 		end try
-		
-		-- Alert user if "run in separate process" should be off
-		
-		try
-			if eachScriptSeparateProcess is not defaultSeparateProcess then
-				display dialog "The script \"" & eachScriptDescription & "\" requires you to change the state of \"Run in separate process\" in the script tab of the inspector"
-			end if
-		end try
-		
-		-- Get current version of Qlab
-		
-		set currentQlabVersion to version of application id "com.figure53.Qlab.4"
-		log "Current Qlab Version: " & currentQlabVersion
-		
-		-- Get current version of MacOS
-		
-		set currentMacOSVersion to system version of (system info)
-		log "Current MacOS Version: " & currentMacOSVersion
-		
-		-- Warn user of version differences
-		
-		if versionWarnings is true then
-			
-			try
-				
-				if currentMacOSVersion is not eachScriptMacOS then
-					set versionIssueMacOS to true
-				else
-					set versionIssueMacOS to false
-				end if
-				
-				if currentQlabVersion is not eachScriptQlab then
-					set versionIssueQlab to true
-				else
-					set versionIssueQlab to false
-				end if
-				
-				
-				if versionIssueMacOS is true and versionIssueQlab is false then
-					-- Issue with MacOS version
-					display notification "Be aware that this script has not been tested with your version of MacOS" with title eachScriptDescription
-					log "The script \"" & eachScriptDescription & "\" has not been tested with your current version of MacOS. TESTED: " & eachScriptMacOS & ", CURRENT: " & currentMacOSVersion
-				else if versionIssueMacOS is false and versionIssueQlab is true then
-					-- Issue with Qlab version
-					display notification "Be aware that this script has not been tested with your version of Qlab" with title eachScriptDescription
-					log "The script \"" & eachScriptDescription & "\" has not been tested with your current version of Qlab. TESTED: " & eachScriptQlab & ", CURRENT: " & currentQlabVersion
-				else if versionIssueMacOS is true and versionIssueQlab is true then
-					-- Issue with MacOS and Qlab versions
-					display notification "Be aware this this script has not been tested with your version of MacOS or your version of Qlab" with title eachScriptDescription
-					log "The script \"" & eachScriptDescription & "\" has not been tested with your current version or MacOS or your current version of Qlab. MACOS TESTED: " & eachScriptMacOS & ", CURRENT: " & currentMacOSVersion & ". QLAB TESTED: " & eachScriptQlab & ", CURRENT: " & currentQlabVersion
-				end if
-			end try
-			
-		end if
 		
 	end tell
 	
