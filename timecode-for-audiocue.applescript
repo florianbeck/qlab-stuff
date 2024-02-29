@@ -1,11 +1,12 @@
 -- @description Timecode for Audiocue
 -- @author Florian Beck
 -- @link www.florianbeck.de
--- @version 1.0
+-- @version 1.1
 -- @about Adds a corresponding timecode cue to an audio cue and puts everything in a group to fire simultanious. Timecode settings should be set in the cue template before. If the group is selected, everything is undone.
 
 -- @changelog
 --   v1.0 + initial version
+-- v1.1 + Added warning dialogs if the audio cue or timecode group is non-standard.
 
 ---- VARIABLES ------------------------
 
@@ -18,6 +19,9 @@ tell application id "com.figure53.Qlab.5" to tell front workspace
 	repeat with eachCue in eachCues
 		set eachCueType to q type of eachCue
 		if eachCueType is in "Audio" then
+			if q type of second item of cues of parent of eachCue is "Timecode" then
+				display dialog "WARNING: It seems that the audio cue you've selected is already in a Timecode group." & return & return & "PROCEED?"
+			end if
 			set eachCueNumber to q number of eachCue
 			set q number of eachCue to ""
 			make type "Timecode"
@@ -35,6 +39,14 @@ tell application id "com.figure53.Qlab.5" to tell front workspace
 			end repeat
 			collapse groupCue
 		else if eachCueType is in "Group" then
+			try
+				set secondChildType to q type of second item of cues of eachCue
+			on error
+				set secondChildType to false
+			end try
+			if secondChildType is not "Timecode" then
+				display dialog "WARNING: It seems that the group cue you've selected is not a Timecode group." & return & return & "PROCEED?"
+			end if
 			set theGroupNumber to q number of eachCue
 			set q number of eachCue to ""
 			set audioCue to first item of cues of eachCue
