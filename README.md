@@ -1,7 +1,5 @@
 # Qlab Stuff
 
-[![GitHub license](https://img.shields.io/github/license/florianbeck/qlab-stuff.svg)](https://github.com/florianbeck/qlab-stuff/blob/main/LICENSE)
-
 ## Introduction
 
 This is a collection of scripts for Figure 53's **Qlab** show control software.
